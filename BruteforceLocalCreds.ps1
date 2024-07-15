@@ -35,7 +35,7 @@ foreach ($password in $passwords) {
                              exit 1
               }
               else {
-                             Write-Output "[x] incorrect password. Skipping to next one."
+                             Write-Output "[x] Incorrect password. Skipping to next one."
                              Write-Output "----------------------------------------------------------------------------------"
               }
 
