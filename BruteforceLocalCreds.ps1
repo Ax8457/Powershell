@@ -5,7 +5,7 @@ Write-Output "======================================================"
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 if ($args.Count -eq 0) {
-    Write-Output "Usage : ./bf1.ps1 <username> <wordlist> "
+    Write-Output "Usage : ./BruteforceLocalCreds.ps1 <username> <wordlist> "
     exit 1
 }
 
