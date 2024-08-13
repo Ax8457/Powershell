@@ -6,3 +6,7 @@ This script replaces IP addresses found in file given in parameter by a motif gi
 
 **- BruteforceLocalCreds :**
 This script leverages _ValidateCredentials_ Powershell method to bruteforce password of the account given in parameter, in  the context of the machine.
+
+**- ServiceSecurePathChecker :**
+This script is built to find services on host and check wether there are in a secure location according _Defender_ (the secure path list is based on a _Defender portal_ security recommendation).
+
