@@ -48,7 +48,7 @@ if ( -not $args[0]){
 if ($args[0] -eq "-h" ){
 	Write-Host "Usage : $($MyInvocation.MyCommand.Name) -h : for help."
 	Write-Host "Usage : $($MyInvocation.MyCommand.Name) -T : for printing HashTables with status 'true' or 'false' for each service found on the host and full path too."
-	Write-Host "Usage : $($MyInvocation.MyCommand.Name) : for use the script to check services found on the host."
+	Write-Host "Usage : $($MyInvocation.MyCommand.Name) : for using the script to check services found on the host."
 }
 
 if ($args[0] -eq "-T" ){
