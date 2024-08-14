@@ -10,6 +10,7 @@ $services = Get-WmiObject -Class Win32_Service
 $serviceStatus = @{}
 $serviceFullPath = @{}
 $isSecure = $false 
+$AllSecure = $true
 
 function Check-ServicePath{
 	foreach ($service in $services) {
@@ -33,9 +34,11 @@ function Print-Result{
 			$resolvedPath = $serviceFullPath[$key]
 			$resolvedPath = $ExecutionContext.InvokeCommand.ExpandString($resolvedPath)
 			Write-Host "Path : $resolvedPath"
-			Write-Host "----------------------------------------------------------------------------------------------------------------------"	
+			Write-Host "----------------------------------------------------------------------------------------------------------------------"
+			$AllSecure = $false	
 		}
 	}
+	if ($AllSecure){Write-Host "All service Paths are secure."}
 
 }
 
@@ -48,7 +51,8 @@ if ( -not $args[0]){
 if ($args[0] -eq "-h" ){
 	Write-Host "Usage : $($MyInvocation.MyCommand.Name) -h : for help."
 	Write-Host "Usage : $($MyInvocation.MyCommand.Name) -T : for printing HashTables with status 'true' or 'false' for each service found on the host and full path too."
-	Write-Host "Usage : $($MyInvocation.MyCommand.Name) : for using the script to check services found on the host."
+	Write-Host "Usage : $($MyInvocation.MyCommand.Name) : for use the script to check services found on the host."
+	break
 }
 
 if ($args[0] -eq "-T" ){
