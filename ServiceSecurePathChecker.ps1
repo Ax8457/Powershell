@@ -11,11 +11,12 @@ $serviceStatus = @{}
 $serviceFullPath = @{}
 $isSecure = $false 
 $AllSecure = $true
+$Env = $false
 
 function Check-ServicePath{
 	foreach ($service in $services) {
 		$fullPath = $service.PathName.Trim('"')
-		$fullPath = $ExecutionContext.InvokeCommand.ExpandString($fullPath)
+		if ($Env) {$fullPath = $ExecutionContext.InvokeCommand.ExpandString($fullPath)}
 		$serviceFullPath[$service.Name] = $fullPath
 		for($i = 0; $i -lt $securePath.Length; $i++){
 			if ($fullPath.StartsWith($securePath[$i])){
@@ -32,30 +33,34 @@ function Print-Result{
 		if (-not $serviceStatus[$key]){
 			Write-Host "[x] Path of Service '$key' isn't secure"
 			$resolvedPath = $serviceFullPath[$key]
-			$resolvedPath = $ExecutionContext.InvokeCommand.ExpandString($resolvedPath)
 			Write-Host "Path : $resolvedPath"
 			Write-Host "----------------------------------------------------------------------------------------------------------------------"
 			$AllSecure = $false	
 		}
 	}
 	if ($AllSecure){Write-Host "All service Paths are secure."}
-
 }
 
 if ( -not $args[0]){
+	$Env = $false
 	Check-ServicePath
 	Print-Result
-	break
 }
+if ($args[0] -eq "-Env"){ 
+	$Env = $true
+	Check-ServicePath
+	Print-Result
+ }
 
 if ($args[0] -eq "-h" ){
 	Write-Host "Usage : $($MyInvocation.MyCommand.Name) -h : for help."
 	Write-Host "Usage : $($MyInvocation.MyCommand.Name) -T : for printing HashTables with status 'true' or 'false' for each service found on the host and full path too."
-	Write-Host "Usage : $($MyInvocation.MyCommand.Name) : for use the script to check services found on the host."
-	break
+	Write-Host "Usage : $($MyInvocation.MyCommand.Name) : for using the script to check services found on the host."
+	Write-Host "Usage : $($MyInvocation.MyCommand.Name) (-T) -V : for interpreting 'env:<Name>' variables in Paths."
 }
 
 if ($args[0] -eq "-T" ){
+	if ($args[1] -eq "-Env"){ $Env = $true }
 	Check-ServicePath
 	Write-Host "----------------------------------------------------------------------------------------------------------------------"
 	Write-Host "	HashTable with Service status : {<Service Name>, <IsSecure boolean>}"
@@ -73,6 +78,6 @@ if ($args[0] -eq "-T" ){
 	Write-Host "----------------------------------------------------------------------------------------------------------------------"
 }
 
-if ($args.Length -gt 1){
+if ($args.Length -gt 2){
 	Write-Host "Usage : $($MyInvocation.MyCommand.Name) -h for help"
 }
