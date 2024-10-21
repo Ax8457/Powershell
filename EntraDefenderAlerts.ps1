@@ -4,6 +4,7 @@ $tenantID = ''
 $clientID = ''
 $secret = ''
 # In your tenant portal, you need to register an API and to generate a secret
+# Make sure you have granted related permissions to your API (in 'API permissions')
 
 $URL_base_API = 'https://api.securitycenter.windows.com'
 $Auth_URL = "https://login.microsoftonline.com/$tenantID/oauth2/v2.0/token"
