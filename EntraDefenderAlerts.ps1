@@ -26,6 +26,7 @@ try {
     return
 }
 
+#last 48 hours
 $dateTime = (Get-Date).ToUniversalTime().AddHours(-48).ToString("o")
 $url = "$URL_base_API/api/alerts`?\$filter=lastUpdateTime+ge+$dateTime"
 $headers = @{
