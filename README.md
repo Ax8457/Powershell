@@ -1,6 +1,9 @@
 # Powershell
 My Powershell Scripts
 
+**- EntraDefenderAlerts :**
+This script gathers alerts from _Defender portal_ and prints its in your shell. Requires _PSWriteColor_ module & to create API in _ENTRA ID_ with relevant permissions granted to work.
+
 **- IPV4_Hider :**
 This script replaces IP addresses found in file given in parameter by a motif given in input. A backup file is generated and the number of IP addresses replaced is prompted also.
 
