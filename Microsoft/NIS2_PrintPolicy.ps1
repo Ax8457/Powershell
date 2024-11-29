@@ -16,7 +16,7 @@ if ([string]::IsNullOrEmpty($token)) {
     }
     $policyID = $args[0]
     Write-Output "[+] Policy ID: $policyID"
-    $uri = "https://management.azure.com/providers/Microsoft.Authorization/policyDefinitions/" + $policyID + "?api-version=2023-04-01"
+    $uri = "https://management.azure.com/providers/Microsoft.Authorization/policyDefinitions/" + $policyID + "?api-version=<version>"
     Write-Output "[***] Requesting uri: $uri"
     $response = Invoke-WebRequest -Uri $uri -Headers $headers
     Write-Output "[+] Reply received : "
